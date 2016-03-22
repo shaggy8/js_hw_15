@@ -45,7 +45,13 @@ input[type="submit"]:hover {
 
 .links li {
 	margin: 23px 0;
-	width: 50%;
+	overflow: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+	.links li {
+		width: 50%;
+	}
 }
 
 .links li > h3 {
