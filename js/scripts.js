@@ -2,7 +2,7 @@
 jQuery(function() {
 
   var start = 0;
-  var page;
+  var lastStart;
 
   $('form').submit(search);
 
@@ -11,16 +11,22 @@ jQuery(function() {
     if ( !$(ev.target).is('.pages_links') ) return;
 
     if ( $(ev.target).is('.forward') ) {
-      start = page + 8;
+      start = lastStart + 8;
     } else if ( $(ev.target).is('.back') ) {
-      start = page - 8;
+      start = lastStart - 8;
     } else {
       start = $(ev.target).attr('href') * 8;
     }
-    console.log(start);
+
     search(ev);
 
-    if (page >= 8) {
+    if (lastStart >= 56) {
+      $('.forward').hide();
+    } else {
+      $('.forward').show();
+    }
+
+    if (lastStart >= 8) {
       $('.back').show();
     } else {
       $('.back').hide();
@@ -53,7 +59,10 @@ jQuery(function() {
       $('.pages').show();
     });
 
-    page = start;
+    $('.pages_links').css({'color': ''});
+    $('.pages_links').eq(start / 8 + 1).css({'color': 'red'});
+
+    lastStart = start;
     start = 0;
   }
 });
